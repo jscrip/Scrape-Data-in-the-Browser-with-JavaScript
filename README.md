@@ -2,7 +2,8 @@
 JavaScript - Scrape a Bookstore with a Browser (Part 1)
 
 Gist: 
-  We’ll be scraping web page data from a fake online bookstore.
+  We’ll be scraping web page data from a fake online bookstore:
+  http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
 
 Disclaimer: 
   The website used in this demo allows people to practice their web scraping skills. Outside this domain, you should ask for permission before scraping someones website.
@@ -19,6 +20,15 @@ In this lesson, you’ll learn how to use JavaScript in the following ways:
   Extract text and links from HTML elements using CSS selectors
   Export the extracted information as JSON
 
+Instructions:
+Go to this page: http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
+Open the web browser's console view
+Copy and paste the contents of the js file into the console and hit enter.
+
+Result:
+
+```[{"price":"47.82","title":"Sharp Objects","link":"http://books.toscrape.com/catalogue/sharp-objects_997/index.html"},{"price":"19.63","title":"In a Dark, Dark ...","link":"http://books.toscrape.com/catalogue/in-a-dark-dark-wood_963/index.html"},{"price":"56.50","title":"The Past Never Ends","link":"http://books.toscrape.com/catalogue/the-past-never-ends_942/index.html"},{"price":"16.64","title":"A Murder in Time","link":"http://books.toscrape.com/catalogue/a-murder-in-time_877/index.html"},{"price":"44.10","title":"The Murder of Roger ...","link":"http://books.toscrape.com/catalogue/the-murder-of-roger-ackroyd-hercule-poirot-4_852/index.html"},{"price":"54.21","title":"The Last Mile (Amos ...","link":"http://books.toscrape.com/catalogue/the-last-mile-amos-decker-2_754/index.html"},{"price":"13.92","title":"That Darkness (Gardiner and ...","link":"http://books.toscrape.com/catalogue/that-darkness-gardiner-and-renner-1_743/index.html"},{"price":"10.69","title":"Tastes Like Fear (DI ...","link":"http://books.toscrape.com/catalogue/tastes-like-fear-di-marnie-rome-3_742/index.html"},{"price":"48.35","title":"A Time of Torment ...","link":"http://books.toscrape.com/catalogue/a-time-of-torment-charlie-parker-14_657/index.html"},{"price":"16.73","title":"A Study in Scarlet ...","link":"http://books.toscrape.com/catalogue/a-study-in-scarlet-sherlock-holmes-1_656/index.html"},{"price":"26.80","title":"Poisonous (Max Revere Novels ...","link":"http://books.toscrape.com/catalogue/poisonous-max-revere-novels-3_627/index.html"},{"price":"54.36","title":"Murder at the 42nd ...","link":"http://books.toscrape.com/catalogue/murder-at-the-42nd-street-library-raymond-ambler-1_624/index.html"},{"price":"35.28","title":"Most Wanted","link":"http://books.toscrape.com/catalogue/most-wanted_623/index.html"},{"price":"11.84","title":"Hide Away (Eve Duncan ...","link":"http://books.toscrape.com/catalogue/hide-away-eve-duncan-20_620/index.html"},{"price":"59.48","title":"Boar Island (Anna Pigeon ...","link":"http://books.toscrape.com/catalogue/boar-island-anna-pigeon-19_613/index.html"},{"price":"27.26","title":"The Widow","link":"http://books.toscrape.com/catalogue/the-widow_609/index.html"},{"price":"13.71","title":"Playing with Fire","link":"http://books.toscrape.com/catalogue/playing-with-fire_602/index.html"},{"price":"25.37","title":"What Happened on Beale ...","link":"http://books.toscrape.com/catalogue/what-happened-on-beale-street-secrets-of-the-south-mysteries-2_506/index.html"},{"price":"52.30","title":"The Bachelor Girl's Guide ...","link":"http://books.toscrape.com/catalogue/the-bachelor-girls-guide-to-murder-herringford-and-watts-mysteries-1_491/index.html"},{"price":"20.89","title":"Delivering the Truth (Quaker ...","link":"http://books.toscrape.com/catalogue/delivering-the-truth-quaker-midwife-mystery-1_464/index.html"}]
+```
 Homework / Future Lessons:
   Crawling and exporting paginated product data
   Request a web page with the Fetch API
