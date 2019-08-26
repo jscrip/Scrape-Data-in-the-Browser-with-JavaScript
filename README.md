@@ -23,7 +23,9 @@ In this lesson, you’ll learn how to use JavaScript in the following ways:
 Instructions:
 Go to this page: http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
 Open the web browser's console view
-Copy and paste the contents of the js file into the console and hit enter.
+Copy and paste the contents of the js file or the code below into the console and press enter.
+
+Note: You might have to "allow pasting" in the browser due to potential security risks. There is no risk to running this code.
 
 ```
 (()=>{ var collection = [],  //IIFE followed by an empty array that will store the scraped data.  More info on immediately invoked function expressions: https://developer.mozilla.org/en-US/docs/Glossary/IIFE
