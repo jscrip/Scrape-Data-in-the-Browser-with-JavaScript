@@ -5,8 +5,8 @@ Gist:
   We’ll be scraping web page data from a fake online bookstore:
   http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
 
-Disclaimer: 
-  The website used in this demo allows people to practice their web scraping skills. Outside this domain, you should ask for permission before scraping someones website.
+* Disclaimer: 
+  * The website used in this demo allows people to practice their web scraping skills. Outside this domain, you should ask for permission before scraping someones website.
 
 Requirements:
   A standard web browser. (Tested on Chrome & Firefox)
