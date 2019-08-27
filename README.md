@@ -1,8 +1,8 @@
 # JavaScript - Scrape a Bookstore with a Browser (Part 1)
 
 ## Goal: 
-- Scrape the price, title, and product link for all 20 books on the following page:
-  - http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
+Scrape the price, title, and product link for all 20 books on the following page:
+- http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
 
 ## Disclaimer: 
 The website used in this demo allows people to practice their web scraping skills. Outside this domain, you should ask for permission before scraping someones website.
