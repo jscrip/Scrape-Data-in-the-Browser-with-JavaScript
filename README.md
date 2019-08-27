@@ -1,19 +1,19 @@
 # scrapeBookStore
 JavaScript - Scrape a Bookstore with a Browser (Part 1)
 
-Gist: 
-  We’ll be scraping web page data from a fake online bookstore:
+Goal: 
+  Scrape the price, title, and product link for all 20 books on the following page:
   http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
 
 Disclaimer: 
 * The website used in this demo allows people to practice their web scraping skills. Outside this domain, you should ask for permission before scraping someones website.
 
 Requirements:
-* A standard web browser. (Tested on Chrome & Firefox)
+* A standard web browser. (Tested on Firefox)
 * Copy and Paste skills
 
 Helpful Prerequisites:
-* Some working knowledge of JavaScript
+* Some working knowledge of JavaScript / TypeScript (ES6)
 * Experience with using Developer View / Console View 
 
 In this lesson, you’ll learn how to use JavaScript in the following ways:
