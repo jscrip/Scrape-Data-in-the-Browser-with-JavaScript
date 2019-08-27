@@ -20,9 +20,9 @@ The website used in this demo allows people to practice their web scraping skill
 * Export the extracted information as JSON
 
 ## Instructions:
-Go to this page: http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
-Open the web browser's console view
-Copy and paste the contents of the js file or the code below into the console and press enter.
+* Go to this page: http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
+* Open the web browser's console view
+* Copy and paste the contents of the js file or the code below into the console and press enter.
 
 ### Note: You might have to "allow pasting" in the browser due to potential security risks. There is no risk to running this code.
 
