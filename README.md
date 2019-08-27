@@ -20,7 +20,7 @@ The website used in this demo allows people to practice their web scraping skill
 
 ### In this lesson, you’ll learn how to use JavaScript in the following ways:
 * Extract text and links from HTML elements using CSS selectors
-* Export the extracted information as JSON
+* Log the extracted information as JSON
 
 ## Instructions:
 * Go to this page: http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html
