@@ -12,8 +12,11 @@ The website used in this demo allows people to practice their web scraping skill
 * Copy and Paste skills
 
 ## Helpful Prerequisites:
-* Some working knowledge of JavaScript / TypeScript (ES6)
-* Experience with using Developer View / Console View 
+* Fundamentals of JavaScript / TypeScript (ES6)
+ * Variables, functions, strings, numbers, arrays, JSON, conditional statements, loops, and using native functions
+* Fundamentals of CSS, CSS Selectors, and/or xpath selectors
+* Experience with Developer View / Console View in Firefox/Chrome browser
+* Fundamentals of Regular Expressions
 
 ### In this lesson, you’ll learn how to use JavaScript in the following ways:
 * Extract text and links from HTML elements using CSS selectors
