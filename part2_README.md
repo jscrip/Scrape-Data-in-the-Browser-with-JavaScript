@@ -36,79 +36,68 @@ The website used in this demo allows people to practice their web scraping skill
 
 ```
 (async ()=>{
-	var collection = [],
-	cleanText = (text) => text.replace(/[\n\s\t\r]+/gm," ").trim(),
-	textFromEl = (el, query, attr) => el.querySelector(query) ? cleanText(el.querySelector(query)[attr]) : "",
-	downloadCSV = (data) => { //export the book collection as a CSV file
-		var jsonToCSV = (json) => { //convert the JSON data into a CSV string.
-			var columns = json.reduce((result,d) => { //get a unique list of column names. This will be the first row of the CSV file.
-				Object.keys(d).forEach(key => { //for each row, loop through each key
-				result.add(key);}); //attempt to add the key (column name) into the Set. A Set can only contain unique values
-				return result; //result = new Set() = where the column names are stored.
-			},new Set()); //Tell the reduce function that the result is going to be a new Set()
-			return [...columns].join(",") + json.reduce((result,d) => {
+	var collection = [], 
+	cleanText = (text) => text.replace(/[\n\s\t\r]+/gm," ").trim(), 
+	textFromEl = (el, query, attr) => el.querySelector(query) ? cleanText(el.querySelector(query)[attr]) : "", 
+	downloadCSV = (data) => {
+		var jsonToCSV = (json) => {
+			var columns = json.reduce((result,d) => {
+				Object.keys(d).forEach(key => {
+				result.add(key);}); 
+				return result; 
+			},new Set()); 
+			return [...columns].join(",") + json.reduce((result,d) => { 
 				result += "\n" + [...columns].map(key => typeof d[key] == "number" ? d[key] : typeof d[key] == "string" ? d[key].replace(",","⹁") : "").join(",")
 				return result;
-			},"");
-		},
-		csvDownload = jsonToCSV(data),
+			},"");}, 
+		csvDownload = jsonToCSV(data), 
 		exportFilename = "data.csv",
 		csvData = new Blob([csvDownload], { type: 'text/csv;charset=utf-8;'});
 		if (navigator.msSaveBlob) {
-			navigator.msSaveBlob(csvData, exportFilename);
-		} else {
+			navigator.msSaveBlob(csvData, exportFilename); 
+		} else { 
 			var link = document.createElement('a');
-			link.href = window.URL.createObjectURL(csvData);
-			link.setAttribute('download', exportFilename);
-			document.body.appendChild(link);
-			link.click();
-			document.body.removeChild(link);
-		};
-	},
-	pageGenerator = function* async (start,end){
-			var i = start;
-			while (i <= end) {
-				yield i++;
-	}},
+			link.href = window.URL.createObjectURL(csvData); 
+			link.setAttribute('download', exportFilename); 
+			document.body.appendChild(link); 
+			link.click(); 
+			document.body.removeChild(link); 
+		};},
+	pageGenerator = async function* (start,end){ while (start <= end) { yield start++; }},
 	getDoc = async (url) => {
 		var response = await fetch(url),
-			text = await response.text(),
-			parser = await new DOMParser();
+				text = await response.text(), 
+				parser = await new DOMParser(); 
 		return await parser.parseFromString(text, "text/html");
 	},
-	getBooks = async (doc,num,cat) => {
-		books = await doc.querySelectorAll(".product_pod");
-		for await (const book of books) {
-			var title = await textFromEl(book,"h3 a", "title"),
-					price = await +textFromEl(book,".price_color", "textContent").replace("£",""),
-					link = 	await textFromEl(book,"a", "href");
-			collection.push({price,title,link,cat});
-	}},
-	scrapePages = async (baseURL, firstPage, lastPage,cat) => {
-		for await (let num of pageGenerator(firstPage,lastPage)) {
-			var url = await baseURL.replace("[num]",num),
-					doc = await getDoc(url);
-			await getBooks(doc, num,cat);
-	};},
-	scrapeBooksByCategories = async (categories) => {
-		var url = `http://books.toscrape.com/catalogue/category/books/`,
-		pageReference = '/page-[num].html';
-		for await (let num of pageGenerator(0,categories.length-1)) {
-		var category = categories[num],
-			templateURL = url+category+pageReference,
-			targetURL = templateURL.replace(pageReference,"/index.html"),
-			doc = await getDoc(targetURL),
-			lastPage = Math.ceil(+doc.querySelector(".form-horizontal > strong").textContent / 20),
-			cat = category.split("_")[0];
-		await getBooks(doc, 1, cat);
-		lastPage > 1 ? await scrapePages(templateURL,2,lastPage,cat) : null;
-	};},
-	bookCategories = [...document.querySelectorAll(".side_categories > ul a")].map(el => {
-		return el.href.replace("http://books.toscrape.com/catalogue/category/books/","").replace("/index.html","");
-	});
-	bookCategories.shift();
-	await scrapeBooksByCategories(bookCategories);
-	downloadCSV(collection);
+	getBooks = async (doc,cat) => { 
+			var books = await doc.querySelectorAll(".product_pod"); 
+			for await (const book of books) {
+				var title = await textFromEl(book,"h3 a", "title"),
+						price = await +textFromEl(book,".price_color", "textContent").replace("£",""),
+						link = 	await textFromEl(book,"a", "href"); 
+				collection.push({price,title,link,cat});}}, 
+	scrapePages = async (baseURL, firstPage, lastPage,cat) => { 
+			for await (let num of pageGenerator(firstPage,lastPage)) { 
+				var url = await baseURL.replace("[num]",num), 
+						doc = await getDoc(url); 
+				await getBooks(doc, num,cat);};},
+	scrapeBooksByCategories = async () => {
+			var categories = [...document.querySelectorAll(".side_categories > ul a")].map(el => { 
+				return el.href.replace("http://books.toscrape.com/catalogue/category/books/","").replace("/index.html","");}), 
+					url = `http://books.toscrape.com/catalogue/category/books/`, 
+					pageReference = '/page-[num].html';
+			for await (let num of pageGenerator(1,categories.length-1)) { 
+				var category = categories[num],
+					templateURL = url+category+pageReference, 
+					targetURL = templateURL.replace(pageReference,"/index.html"), 
+					doc = await getDoc(targetURL), 
+					lastPage = Math.ceil(+doc.querySelector(".form-horizontal > strong").textContent / 20),
+					cat = category.split("_")[0];
+					await getBooks(doc, 1, cat); 
+					lastPage > 1 ? await scrapePages(templateURL,2,lastPage,cat) : null; };}; 
+		await scrapeBooksByCategories();
+		downloadCSV(collection);
 })();
  ```
 
