@@ -12,3 +12,9 @@ Helpful Tutorials:
 
 - Working with Data and APIs in JavaScript (YouTube Playlist by Coding Train):
   - https://www.youtube.com/playlist?list=PLRqwX-V7Uu6YxDKpFzf_2D84p0cyk4T7X
+
+- What is the DOMParser? - JavaScript Tutorial (YouTube Video by dcode):
+  - https://www.youtube.com/watch?v=mW34Gc9c6JY
+
+- Array.push() (Documentation and examples by WDN Web Docs):
+  - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push
