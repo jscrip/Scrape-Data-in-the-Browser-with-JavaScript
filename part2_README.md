@@ -1,4 +1,4 @@
-# JavaScript - Scrape a Bookstore with a Browser (Part 2)
+# # JavaScript - Scrape Data in the Browser (Part 2)
 
 ## Goal: 
 Scrape the price, title, category, and product link for all 1000 books on the following site:
