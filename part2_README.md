@@ -39,66 +39,49 @@ The website used in this demo allows people to practice their web scraping skill
 	var collection = [], 
 	cleanText = (text) => text.replace(/[\n\s\t\r]+/gm," ").trim(), 
 	textFromEl = (el, query, attr) => el.querySelector(query) ? cleanText(el.querySelector(query)[attr]) : "", 
-	downloadCSV = (data) => {
-		var jsonToCSV = (json) => {
-			var columns = json.reduce((result,d) => {
-				Object.keys(d).forEach(key => {
-				result.add(key);}); 
-				return result; 
-			},new Set()); 
-			return [...columns].join(",") + json.reduce((result,d) => { 
-				result += "\n" + [...columns].map(key => typeof d[key] == "number" ? d[key] : typeof d[key] == "string" ? d[key].replace(",","⹁") : "").join(",")
-				return result;
-			},"");}, 
-		csvDownload = jsonToCSV(data), 
-		exportFilename = "data.csv",
-		csvData = new Blob([csvDownload], { type: 'text/csv;charset=utf-8;'});
-		if (navigator.msSaveBlob) {
-			navigator.msSaveBlob(csvData, exportFilename); 
-		} else { 
-			var link = document.createElement('a');
-			link.href = window.URL.createObjectURL(csvData); 
-			link.setAttribute('download', exportFilename); 
-			document.body.appendChild(link); 
-			link.click(); 
-			document.body.removeChild(link); 
-		};},
-	pageGenerator = async function* (start,end){ while (start <= end) { yield start++; }},
-	getDoc = async (url) => {
-		var response = await fetch(url),
-				text = await response.text(), 
-				parser = await new DOMParser(); 
+	pageGenerator = async function* (start,end){
+			while (start <= end) { 
+				yield start++; 
+	}},
+	getDoc = async (url) => { 
+		var response = await fetch(url), 
+			text = await response.text(), 
+			parser = await new DOMParser(); 
 		return await parser.parseFromString(text, "text/html");
 	},
 	getBooks = async (doc,cat) => { 
-			var books = await doc.querySelectorAll(".product_pod"); 
-			for await (const book of books) {
-				var title = await textFromEl(book,"h3 a", "title"),
-						price = await +textFromEl(book,".price_color", "textContent").replace("£",""),
-						link = 	await textFromEl(book,"a", "href"); 
-				collection.push({price,title,link,cat});}}, 
-	scrapePages = async (baseURL, firstPage, lastPage,cat) => { 
-			for await (let num of pageGenerator(firstPage,lastPage)) { 
-				var url = await baseURL.replace("[num]",num), 
-						doc = await getDoc(url); 
-				await getBooks(doc, num,cat);};},
-	scrapeBooksByCategories = async () => {
-			var categories = [...document.querySelectorAll(".side_categories > ul a")].map(el => { 
-				return el.href.replace("http://books.toscrape.com/catalogue/category/books/","").replace("/index.html","");}), 
-					url = `http://books.toscrape.com/catalogue/category/books/`, 
-					pageReference = '/page-[num].html';
-			for await (let num of pageGenerator(1,categories.length-1)) { 
-				var category = categories[num],
-					templateURL = url+category+pageReference, 
-					targetURL = templateURL.replace(pageReference,"/index.html"), 
-					doc = await getDoc(targetURL), 
-					lastPage = Math.ceil(+doc.querySelector(".form-horizontal > strong").textContent / 20),
-					cat = category.split("_")[0];
-					await getBooks(doc, 1, cat); 
-					lastPage > 1 ? await scrapePages(templateURL,2,lastPage,cat) : null; };}; 
-		await scrapeBooksByCategories();
-		downloadCSV(collection);
+		books = await doc.querySelectorAll(".product_pod"); 
+		for await (const book of books) {
+			var title = await textFromEl(book,"h3 a", "title"), 
+					price = await +textFromEl(book,".price_color", "textContent").replace("£",""), 
+					link = 	await textFromEl(book,"a", "href"); 
+			collection.push({price,title,link,cat});
+	}},
+	scrapePages = async (baseURL, firstPage, lastPage,cat) => {
+		for await (let num of pageGenerator(firstPage,lastPage)) { 
+			var url = await baseURL.replace("[num]",num), 
+					doc = await getDoc(url); 
+			await getBooks(doc, num,cat);
+	};},
+	scrapeBooksByCategories = async () => { 
+		var categories = [...document.querySelectorAll(".side_categories > ul a")].map(el => {
+			return el.href.replace("http://books.toscrape.com/catalogue/category/books/","").replace("/index.html","");}),
+				url = `http://books.toscrape.com/catalogue/category/books/`,
+				pageReference = '/page-[num].html'; 
+		for await (let num of pageGenerator(1,categories.length-1)) { 
+			var category = categories[num],
+				templateURL = url+category+pageReference, 
+				targetURL = templateURL.replace(pageReference,"/index.html"),
+				doc = await getDoc(targetURL),
+				lastPage = Math.ceil(+doc.querySelector(".form-horizontal > strong").textContent / 20), 
+				cat = category.split("_")[0]; 
+				await getBooks(doc, 1, cat);
+				lastPage > 1 ? await scrapePages(templateURL,2,lastPage,cat) : null;
+		};}; 
+	await scrapeBooksByCategories();
+	console.log({collection}); 
 })();
+
  ```
 
 ## Homework / Future Lessons:
